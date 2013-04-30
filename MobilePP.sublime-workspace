@@ -23,8 +23,16 @@
 			"file": "main.py",
 			"settings":
 			{
-				"buffer_size": 0,
+				"buffer_size": 133,
 				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/C/Users/sl7v6/AppData/Roaming/Sublime Text 2/Packages/Python/Python.sublime-build",
+			"settings":
+			{
+				"buffer_size": 234,
+				"line_ending": "Unix"
 			}
 		}
 	],
@@ -52,9 +60,13 @@
 	},
 	"file_history":
 	[
+		"/C/Users/sl7v6/AppData/Roaming/Sublime Text 2/Packages/Vintage/README.TXT",
 		"/C/Users/sl7v6/AppData/Roaming/Sublime Text 2/Packages/Default/Preferences.sublime-settings",
-		"/C/Users/sl7v6/Documents/GitHub/MobileParkinsonsPrediction/main.py",
+		"/C/Users/sl7v6/AppData/Roaming/Sublime Text 2/Packages/Python/Python.sublime-build",
+		"/C/Users/sl7v6/AppData/Roaming/Sublime Text 2/Pristine Packages/Python.sublime-package",
 		"/C/Users/sl7v6/Documents/GitHub/MobileParkinsonsPrediction/MobilePP.sublime-project",
+		"/C/Users/sl7v6/Documents/GitHub/MobileParkinsonsPrediction/README.md",
+		"/C/Users/sl7v6/Documents/GitHub/MobileParkinsonsPrediction/main.py",
 		"/C/wamp/www/SISLTMSLS/SISLTMSLS.sublime-project",
 		"/C/wamp/www/SISLTMSLS/.gitignore",
 		"/C/wamp/www/SISLTMSLS/index.html",
@@ -119,20 +131,46 @@
 					"file": "main.py",
 					"settings":
 					{
-						"buffer_size": 0,
+						"buffer_size": 133,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								133,
+								133
 							]
 						],
 						"settings":
 						{
 							"syntax": "Packages/Python/Python.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "/C/Users/sl7v6/AppData/Roaming/Sublime Text 2/Packages/Python/Python.sublime-build",
+					"settings":
+					{
+						"buffer_size": 234,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								147,
+								147
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
