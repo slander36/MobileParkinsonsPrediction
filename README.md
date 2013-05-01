@@ -6,6 +6,21 @@ This project was brought about because of the Michael J. Fox Parkinson's Challen
 
 ## Author
 @slander36
-Graduate Studen
+Graduate Student
 University of Missouri - Columbia
 Computer Science Dept.
+
+## Tools Used
+[MySQL Database][3]
+[Sublime Text 2][4]
+[Github][5]
+
+## Libraries Used
+[SciPy][1]
+[MySQL Connector/Python][2]
+
+[1]: http://www.scipy.org/
+[2]: http://dev.mysql.com/doc/refman/5.7/en/connector-python.html
+[3]: http://www.mysql.com/
+[4]: http://www.sublimetext.com/2
+[5]: https://www.github.com
