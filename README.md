@@ -24,7 +24,7 @@ Computer Science Department
 ## Tools/Libraries Created
 ####aggregates MySQL Library
 New aggregation functions created specifically for this project including:
-+ *sumOfDifferences:*
++ **sumOfDifferences:**
 	+ Description: Sums the differences between double values in a sequence
 	+ Usage: In this case it is used to find the total distance traveled via GPS positions recorded in 1 second intervals
 
