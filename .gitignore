@@ -171,3 +171,14 @@ pip-log.txt
 Data/
 *.data
 *.csv
+
+##
+## MySQL User Defined Functions
+##
+MySQL_Functions/*.sln
+MySQL_Functions/*.vcxproj*
+MySQL_Functions/CMakeCache.txt
+MySQL_Functions/cmake_install.cmake
+MySQL_Functions/CMakeFiles/
+MySQL_Functions/Release/
+MySQL_Functions/x64/

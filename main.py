@@ -57,22 +57,25 @@ def checkConnection():
 
 
 # List of subject names for alternate usage
-subjectNames = ['APPLE',
-	'CHERRY',
-	'CROCUS',
-	'DAFODIL',
-	'DAISY',
-	'FLOX',
-	'IRIS',
-	'LILY',
-	'MAPLE',
-	'ORANGE',
-	'ORCHID',
-	'PEONY',
-	'ROSE',
-	'SUNFLOWER',
-	'SWEETPEA',
-	'VIOLET']
+# Name: [hasParkinsons, isMale, currentAge, diagnosedAge]
+subjects = {
+	'APPLE':	[0,	1,	77,	'NULL'],
+	'CHERRY':	[1,	0,	55,	55],
+	'CROCUS':	[1,	1,	46, 41],
+	'DAFODIL':	[0,	1,	42,	'NULL'],
+	'DAISY':	[1,	1,	54,	52],
+	'FLOX':		[1,	1,	57,	47],
+	'IRIS':		[1,	1,	65,	45],
+	'LILY':		[0,	0,	53,	'NULL'],
+	'MAPLE':	[1,	1,	55,	46],
+	'ORANGE':	[0,	1,	57,	'NULL'],
+	'ORCHID':	[1,	1,	69,	65],
+	'PEONY':	[1,	1,	80,	67],
+	'ROSE':		[0,	1,	55,	'NULL'],
+	'SUNFLOWER':[0,	0,	67,	'NULL'],
+	'SWEETPEA':	[0,	0,	77,	'NULL'],
+	'VIOLET':	[1,	0,	55,	43]
+	}
 
 # Creates the Subjects if they don't exist
 def checkSubjects():
@@ -84,51 +87,32 @@ def checkSubjects():
 	cursor = connection.cursor()
 
 	# Get Subject Names
-	global subjectNames
-
-	subjects = []
-	subjects.append((subjectNames[0],0,1,77))
-	subjects.append((subjectNames[1],1,0,55,51))
-	subjects.append((subjectNames[2],1,1,46,41))
-	subjects.append((subjectNames[3],0,1,42))
-	subjects.append((subjectNames[4],1,1,54,52))
-	subjects.append((subjectNames[5],1,1,57,47))
-	subjects.append((subjectNames[6],1,1,65,45))
-	subjects.append((subjectNames[7],0,0,53))
-	subjects.append((subjectNames[8],1,1,55,46))
-	subjects.append((subjectNames[9],0,1,57))
-	subjects.append((subjectNames[10],1,1,69,65))
-	subjects.append((subjectNames[11],1,1,80,67))
-	subjects.append((subjectNames[12],0,1,55))
-	subjects.append((subjectNames[13],0,1,67))
-	subjects.append((subjectNames[14],0,0,77))
-	subjects.append((subjectNames[15],1,0,55,43))
+	global subjects
 
 	checkSubject = ("SELECT * FROM Subject WHERE name=%(name)s")
 
-	addSubjectWith = ("INSERT INTO Subject "
+	addSubject = ("INSERT INTO Subject "
 		"(name, parkinsons, male, age, ageDiagnosed) "
 		"VALUES (%s, %s, %s, %s, %s)")
 
-	addSubjectWithout = ("INSERT INTO Subject "
-		"(name, parkinsons, male, age) "
-		"VALUES (%s, %s, %s, %s)")
-
-	for subject in subjects:
+	for (name,data) in subjects.items():
 		# Erases any existing files
-		csvInfile = open("{0}gps.csv".format(subject[0]),'w')
+		csvInfile = open("{0}gps.csv".format(name),'w')
 		csvInfile.close()
 
-		cursor.execute(checkSubject,{'name': subject[0]})
+		# Check to make sure Subject isn't already in DB
+		cursor.execute(checkSubject,{'name': name})
 		rows = cursor.fetchall()
 		if len(rows) is not 0:
 			continue
-		if len(subject) is 5:
-			# Add all fields
-			cursor.execute(addSubjectWith, subject)
-		else:
-			# Add all but ageDiagnosed
-			cursor.execute(addSubjectWithout, subject)
+
+		# Add Subject to DB
+		parkinsons = data[0]
+		male = data[1]
+		age = data[2]
+		ageDiagnosed = data[3]
+		subject = (name, parkinsons, male, age, ageDiagnosed)
+		cursor.execute(addSubject, subject)
 
 	connection.commit()
 
@@ -173,6 +157,9 @@ def createGpsInfile(file):
 	# Load in the GPS Data Counter
 	global gpsCounter
 
+	# Load in the subjects dictionary
+	global subjects
+
 	# Get just the basename from the full path
 	basename = os.path.basename(file)
 	# Show the current file
@@ -192,6 +179,9 @@ def createGpsInfile(file):
 	if re.search('LILY|LILLY',name) is not None:
 		name = 'LILY'
 
+	if name not in subjects.keys():
+		return
+
 	# Trying something new
 	# Write the queries to a sql file and run it instead
 	csvInfile = open('{0}gps.csv'.format(name),'a')
@@ -204,10 +194,18 @@ def createGpsInfile(file):
 	# Skip the header
 	next(csvreader)
 
-	# Initialize the data
-	data = []
+	# Get the static information
+	parkinsons = subjects[name][0]
+	male = subjects[name][1]
+	age = subjects[name][2]
+	ageDiagnosed = subjects[name][3]
+	if ageDiagnosed is 'NULL':
+		yearsDiagnosed = str(0)
+	else:
+		yearsDiagnosed = age - ageDiagnosed
+
 	for row in csvreader:
-		# Get the different 
+		# Get the data from the row
 		diffSec = row[0]
 		latitude = row[1]
 		longitude = row[2]
@@ -215,7 +213,17 @@ def createGpsInfile(file):
 		time = row[4]
 
 		# Write data to a list and use it to generate a sql statement
-		data = (name, diffSec, latitude, longitude, altitude, time)
+		data = (name,
+			str(parkinsons),
+			str(male),
+			str(age),
+			str(ageDiagnosed),
+			str(yearsDiagnosed),
+			diffSec,
+			latitude,
+			longitude,
+			altitude,
+			time)
 		csvInfile.write("{}\n".format(','.join(data)))
 
 	# Close the file
@@ -237,16 +245,16 @@ def loadGpsDataInfile():
 	cursor = connection.cursor()
 
 	# Load in the subjectNames global
-	global subjectNames
+	global subjects
 
-	loadDataLocalInfile = open('loadDataLocalInfile.sql','w')
+	loadDataLocalInfile = open('LoadDataLocalInfile.sql','w')
 
-	for subjectName in subjectNames:
+	for subjectName in subjects.keys():
 		query = ("LOAD DATA LOCAL INFILE '{0}gps.csv' "
 			"INTO TABLE GPS "
 			"FIELDS TERMINATED BY ',' "
 			"ENCLOSED BY '\"' "
-			"LINES TERMINATED BY '\n';")
+			"LINES TERMINATED BY '\\n';\n")
 		loadDataLocalInfile.write(query.format(subjectName));
 
 
@@ -279,10 +287,10 @@ if __name__ == '__main__':
 	# Walk the directory structure, creating the CSVs
 	walk(here)
 	print("Created All Subject's GPS CSVs")
-
+	'''
 	# Create the sql files that will load the CSVs using
 	# LOAD DATA LOCAL INFILE
 	# which the MySqlConnector doesn't have
 	loadGpsDataInfile()
 	print("Created SQL File to Load GPS CSVs")
-	'''
+	

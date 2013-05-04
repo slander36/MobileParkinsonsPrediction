@@ -1,0 +1,15 @@
+LIBRARY		aggregates
+VERSION		1.0
+EXPORTS
+	sumOfDifferences_init
+	sumOfDifferences_reset
+	sumOfDifferences_clear
+	sumOfDifferences_add
+	sumOfDifferences
+	sumOfDifferences_deinit
+	covariance_init
+	covariance_reset
+	covariance_clear
+	covariance_add
+	covariance
+	covariance_deinit
