@@ -29,10 +29,15 @@ New aggregation functions created specifically for this project including:
 ++ Usage: In this case it is used to find the total distance traveled via GPS positions recorded in 1 second intervals
 
 ## Useful Commands
-`MSBuild xxx.sln /p:Configuration=Release`  
-`CREATE AGGREGATE FUNCTION function RETURNS REAL SONAME 'myfunctionlibrary.dll';`  
-`DROP FUNCTION function;`  
-`CREATE VIEW viewName (col1, col2, ...) AS SELECT colA, colB ... FROM ... ;`
+```batchfile
+cmake -G "Visual Studio 11 Win64"  
+MSBuild xxx.sln /p:Configuration=Release  
+```  
+```sql
+CREATE AGGREGATE FUNCTION function RETURNS REAL SONAME 'myfunctionlibrary.dll';  
+DROP FUNCTION function;  
+CREATE VIEW viewName (col1, col2, ...) AS SELECT colA, colB ... FROM ... ;
+```
 
 [1]: http://www.scipy.org/
 [2]: http://dev.mysql.com/doc/refman/5.7/en/connector-python.html
