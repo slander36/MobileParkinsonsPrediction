@@ -22,11 +22,15 @@ Computer Science Department
 [MySQL Connector/Python][2]  
 
 ## Tools/Libraries Created
-####aggregates MySQL Library
-New aggregation functions created specifically for this project including:
+#### **aggregates** MySQL Library - Found in MySQL_Functions
+New aggregation functions created specifically for this project. They were created using CMake and Visual Studio 2012, but should be compilable on any system.  
+They include:
 + **sumOfDifferences:**
 	+ Description: Sums the differences between double values in a sequence
 	+ Usage: In this case it is used to find the total distance traveled via GPS positions recorded in 1 second intervals
++ **covariance:**
+	+ Description: Calculates the covariance between two selected columns
+	+ Usage: Used to find covariance and correlation between different random variables of the patients such as {age, distance traveled}, {gps variance, parkinsons}, etc
 
 ## Useful Commands
 ```batchfile
