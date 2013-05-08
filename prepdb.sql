@@ -8,7 +8,7 @@ CREATE TABLE Subject (
 	parkinsons TINYINT(1) NOT NULL,
 	male TINYINT(1) NOT NULL,
 	age INT(3) NOT NULL,
-	ageDiagnosed INT(3) DEFAULT 0,
+	age_diagnosed INT(3) DEFAULT 0,
 	PRIMARY KEY (name)
 ) ENGINE=InnoDB;
 
@@ -17,9 +17,9 @@ CREATE TABLE GPS (
 	parkinsons TINYINT(1) NOT NULL,
 	male TINYINT(1) NOT NULL,
 	age INT(3) NOT NULL,
-	ageDiagnosed INT(3) DEFAULT NULL,
-	yearsDiagnosed INT(2) DEFAULT 0,
-	diffSecs DOUBLE NOT NULL,
+	age_diagnosed INT(3) DEFAULT NULL,
+	years_diagnosed INT(2) DEFAULT 0,
+	diff_secs DOUBLE NOT NULL,
 	latitude DOUBLE NOT NULL,
 	longitude DOUBLE NOT NULL,
 	altitude DOUBLE NOT NULL,

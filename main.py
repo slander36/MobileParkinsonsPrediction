@@ -92,7 +92,7 @@ def checkSubjects():
 	checkSubject = ("SELECT * FROM Subject WHERE name=%(name)s")
 
 	addSubject = ("INSERT INTO Subject "
-		"(name, parkinsons, male, age, ageDiagnosed) "
+		"(name, parkinsons, male, age, age_diagnosed) "
 		"VALUES (%s, %s, %s, %s, %s)")
 
 	for (name,data) in subjects.items():
@@ -144,13 +144,6 @@ def walk(top):
 
 # Counter for the GPS Data Insertion
 gpsCounter = 0
-
-# Create default insert/select statements
-insertGps = ("INSERT IGNORE INTO GPS "
-	"(name, diffSecs, latitude, longitude, altitude, time) VALUES "
-	"(\"%s\", %s, %s, %s, %s, \"%s\");")
-selectGpsByDate = ("SELECT * FROM GPS "
-	"WHERE date=\"%s\";")
 
 # Load the current GPS CSV file
 def createGpsInfile(file):
@@ -279,7 +272,7 @@ if __name__ == '__main__':
 	here = '{0}\\Data'.format(here)
 
 	# Finished Compiling GPS Data
-	'''
+	
 	# Make sure the Subject table has people in it
 	checkSubjects()
 	print("Created All Subjects")
@@ -287,7 +280,7 @@ if __name__ == '__main__':
 	# Walk the directory structure, creating the CSVs
 	walk(here)
 	print("Created All Subject's GPS CSVs")
-	'''
+	
 	# Create the sql files that will load the CSVs using
 	# LOAD DATA LOCAL INFILE
 	# which the MySqlConnector doesn't have
