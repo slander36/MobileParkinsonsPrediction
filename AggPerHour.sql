@@ -14,10 +14,8 @@ CREATE OR REPLACE VIEW agg_per_hour_view
 	parkinsons,
 	lat_var,
 	long_var,
-	lat_traveled,
-	long_traveled,
-	lat_range,
-	long_range
+	gps_traveled,
+	gps_range
 )
 AS SELECT
 	DATE(G.time),
@@ -27,14 +25,13 @@ AS SELECT
 	S.parkinsons,
 	VARIANCE(G.latitude),
 	VARIANCE(G.longitude),
-	sumOfDifferences(G.latitude),
-	sumOfDifferences(G.longitude),
-	MAX(G.latitude)-MIN(G.latitude),
-	MAX(G.longitude)-MIN(G.longitude)
+	sumEuclidianDistance(G.latitude, G.longitude),
+	SQRT(POW(MAX(G.latitude)-MIN(G.latitude),2) + POW(MAX(G.longitude)-MIN(G.longitude),2))
 FROM GPS AS G
 JOIN Subject AS S ON G.name=S.name
 GROUP BY S.name, DATE(G.time), HOUR(G.time);
 
+DROP TABLE IF EXISTS agg_per_hour;
 CREATE TABLE IF NOT EXISTS agg_per_hour SELECT * FROM agg_per_hour_view;
 
 # Generate Covariance By Date and Hour - Overall
@@ -44,21 +41,16 @@ CREATE OR REPLACE VIEW cov_per_hour_overall_view
 	cov_age,
 	cov_lat_var,
 	cov_long_var,
-	cov_lat_traveled,
-	cov_long_traveled,
-	cov_lat_range,
-	cov_long_range
+	cov_gps_traveled,
+	cov_gps_range
 )
 AS SELECT
 	covariance(parkinsons, age),
 	covariance(parkinsons, lat_var),
 	covariance(parkinsons, long_var),
-	covariance(parkinsons, lat_traveled),
-	covariance(parkinsons, long_traveled),
-	covariance(parkinsons, lat_range),
-	covariance(parkinsons, long_range)
-FROM agg_per_hour
-WHERE lat_var < 1 AND long_var < 1;
+	covariance(parkinsons, gps_traveled),
+	covariance(parkinsons, gps_range)
+FROM agg_per_hour;
 
 # Generate Correlation By Date and Hour - Overall
 
@@ -67,21 +59,16 @@ CREATE OR REPLACE VIEW cor_per_hour_overall_view
 	cor_age,
 	cor_lat_var,
 	cor_long_var,
-	cor_lat_traveled,
-	cor_long_traveled,
-	cor_lat_range,
-	cor_long_range
+	cor_gps_traveled,
+	cor_gps_range
 )
 AS SELECT
 	covariance(parkinsons, age) / (STDDEV(parkinsons)*STDDEV(age)),
 	covariance(parkinsons, lat_var) / (STDDEV(parkinsons)*STDDEV(lat_var)),
 	covariance(parkinsons, long_var) / (STDDEV(parkinsons)*STDDEV(long_var)),
-	covariance(parkinsons, lat_traveled) / (STDDEV(parkinsons)*STDDEV(lat_traveled)),
-	covariance(parkinsons, long_traveled) / (STDDEV(parkinsons)*STDDEV(long_traveled)),
-	covariance(parkinsons, lat_range) / (STDDEV(parkinsons)*STDDEV(lat_range)),
-	covariance(parkinsons, long_range) / (STDDEV(parkinsons)*STDDEV(long_range))
-FROM agg_per_hour
-WHERE lat_var < 1 AND long_var < 1;
+	covariance(parkinsons, gps_traveled) / (STDDEV(parkinsons)*STDDEV(gps_traveled)),
+	covariance(parkinsons, gps_range) / (STDDEV(parkinsons)*STDDEV(gps_range))
+FROM agg_per_hour;
 
 # Generate Mean and Std Dev View for each variable - Overall
 
@@ -96,7 +83,6 @@ AS SELECT
 	avg(lat_var),
 	VARIANCE(lat_var)
 FROM agg_per_hour
-WHERE lat_var < 1 AND long_var < 1
 GROUP BY parkinsons
 ORDER BY parkinsons DESC;
 
@@ -111,67 +97,34 @@ AS SELECT
 	avg(long_var),
 	VARIANCE(long_var)
 FROM agg_per_hour
-WHERE lat_var < 1 AND long_var < 1
 GROUP BY parkinsons
 ORDER BY parkinsons DESC;
 
-CREATE OR REPLACE VIEW lat_traveled_per_hour_overall_view
+CREATE OR REPLACE VIEW gps_traveled_per_hour_overall_view
 (
 	parkinsons,
-	lat_traveled_mu,
-	lat_traveled_sig
+	gps_traveled_mu,
+	gps_traveled_sig
 )
 AS SELECT
 	parkinsons,
-	avg(lat_traveled),
-	VARIANCE(lat_traveled)
+	avg(gps_traveled),
+	VARIANCE(gps_traveled)
 FROM agg_per_hour
-WHERE lat_var < 1 AND long_var < 1
 GROUP BY parkinsons
 ORDER BY parkinsons DESC;
 
-CREATE OR REPLACE VIEW long_traveled_per_hour_overall_view
+CREATE OR REPLACE VIEW gps_range_per_hour_overall_view
 (
 	parkinsons,
-	long_traveled_mu,
-	long_traveled_sig
+	gps_range_mu,
+	gps_range_sig
 )
 AS SELECT
 	parkinsons,
-	avg(long_traveled),
-	VARIANCE(long_traveled)
+	avg(gps_range),
+	VARIANCE(gps_range)
 FROM agg_per_hour
-WHERE lat_var < 1 AND long_var < 1
-GROUP BY parkinsons
-ORDER BY parkinsons DESC;
-
-CREATE OR REPLACE VIEW lat_range_per_hour_overall_view
-(
-	parkinsons,
-	lat_range_mu,
-	lat_range_sig
-)
-AS SELECT
-	parkinsons,
-	avg(lat_range),
-	VARIANCE(lat_range)
-FROM agg_per_hour
-WHERE lat_var < 1 AND long_var < 1
-GROUP BY parkinsons
-ORDER BY parkinsons DESC;
-
-CREATE OR REPLACE VIEW long_range_per_hour_overall_view
-(
-	parkinsons,
-	long_range_mu,
-	long_range_sig
-)
-AS SELECT
-	parkinsons,
-	avg(long_range),
-	VARIANCE(long_range)
-FROM agg_per_hour
-WHERE lat_var < 1 AND long_var < 1
 GROUP BY parkinsons
 ORDER BY parkinsons DESC;
 
@@ -184,22 +137,17 @@ CREATE OR REPLACE VIEW cov_per_hour_gb_hour_view
 	cov_age,
 	cov_lat_var,
 	cov_long_var,
-	cov_lat_traveled,
-	cov_long_traveled,
-	cov_lat_range,
-	cov_long_range
+	cov_gps_traveled,
+	cov_gps_range
 )
 AS SELECT
 	record_hour,
 	covariance(parkinsons, age),
 	covariance(parkinsons, lat_var),
 	covariance(parkinsons, long_var),
-	covariance(parkinsons, lat_traveled),
-	covariance(parkinsons, long_traveled),
-	covariance(parkinsons, lat_range),
-	covariance(parkinsons, long_range)
+	covariance(parkinsons, gps_traveled),
+	covariance(parkinsons, gps_range)
 FROM agg_per_hour
-WHERE lat_var < 1 AND long_var < 1
 GROUP BY record_hour;
 
 # Generate Correlation By Date and Hour - Grouped By Hour
@@ -210,22 +158,17 @@ CREATE OR REPLACE VIEW cor_per_hour_gb_hour_view
 	cor_age,
 	cor_lat_var,
 	cor_long_var,
-	cor_lat_traveled,
-	cor_long_traveled,
-	cor_lat_range,
-	cor_long_range
+	cor_gps_traveled,
+	cor_gps_range
 )
 AS SELECT
 	record_hour,
 	covariance(parkinsons, age) / (STDDEV(parkinsons)*STDDEV(age)),
 	covariance(parkinsons, lat_var) / (STDDEV(parkinsons)*STDDEV(lat_var)),
 	covariance(parkinsons, long_var) / (STDDEV(parkinsons)*STDDEV(long_var)),
-	covariance(parkinsons, lat_traveled) / (STDDEV(parkinsons)*STDDEV(lat_traveled)),
-	covariance(parkinsons, long_traveled) / (STDDEV(parkinsons)*STDDEV(long_traveled)),
-	covariance(parkinsons, lat_range) / (STDDEV(parkinsons)*STDDEV(lat_range)),
-	covariance(parkinsons, long_range) / (STDDEV(parkinsons)*STDDEV(long_range))
+	covariance(parkinsons, gps_traveled) / (STDDEV(parkinsons)*STDDEV(gps_traveled)),
+	covariance(parkinsons, gps_range) / (STDDEV(parkinsons)*STDDEV(gps_range))
 FROM agg_per_hour
-WHERE lat_var < 1 AND long_var < 1
 GROUP BY record_hour;
 
 
@@ -238,22 +181,17 @@ CREATE OR REPLACE VIEW cov_per_hour_gb_day_view
 	cov_age,
 	cov_lat_var,
 	cov_long_var,
-	cov_lat_traveled,
-	cov_long_traveled,
-	cov_lat_range,
-	cov_long_range
+	cov_gps_traveled,
+	cov_gps_range
 )
 AS SELECT
 	record_day,
 	covariance(parkinsons, age),
 	covariance(parkinsons, lat_var),
 	covariance(parkinsons, long_var),
-	covariance(parkinsons, lat_traveled),
-	covariance(parkinsons, long_traveled),
-	covariance(parkinsons, lat_range),
-	covariance(parkinsons, long_range)
+	covariance(parkinsons, gps_traveled),
+	covariance(parkinsons, gps_range)
 FROM agg_per_hour
-WHERE lat_var < 1 AND long_var < 1
 GROUP BY DATE(record_day);
 
 # Generate Correlation By Date and Hour - Grouped By Day
@@ -264,22 +202,17 @@ CREATE OR REPLACE VIEW cor_per_hour_gb_day_view
 	cor_age,
 	cor_lat_var,
 	cor_long_var,
-	cor_lat_traveled,
-	cor_long_traveled,
-	cor_lat_range,
-	cor_long_range
+	cor_gps_traveled,
+	cor_gps_range
 )
 AS SELECT
 	record_day,
 	covariance(parkinsons, age) / (STDDEV(parkinsons)*STDDEV(age)),
 	covariance(parkinsons, lat_var) / (STDDEV(parkinsons)*STDDEV(lat_var)),
 	covariance(parkinsons, long_var) / (STDDEV(parkinsons)*STDDEV(long_var)),
-	covariance(parkinsons, lat_traveled) / (STDDEV(parkinsons)*STDDEV(lat_traveled)),
-	covariance(parkinsons, long_traveled) / (STDDEV(parkinsons)*STDDEV(long_traveled)),
-	covariance(parkinsons, lat_range) / (STDDEV(parkinsons)*STDDEV(lat_range)),
-	covariance(parkinsons, long_range) / (STDDEV(parkinsons)*STDDEV(long_range))
+	covariance(parkinsons, gps_traveled) / (STDDEV(parkinsons)*STDDEV(gps_traveled)),
+	covariance(parkinsons, gps_range) / (STDDEV(parkinsons)*STDDEV(gps_range))
 FROM agg_per_hour
-WHERE lat_var < 1 AND long_var < 1
 GROUP BY DATE(record_day);
 
 
@@ -292,22 +225,17 @@ CREATE OR REPLACE VIEW cov_per_hour_gb_dayofweek_view
 	cov_age,
 	cov_lat_var,
 	cov_long_var,
-	cov_lat_traveled,
-	cov_long_traveled,
-	cov_lat_range,
-	cov_long_range
+	cov_gps_traveled,
+	cov_gps_range
 )
 AS SELECT
 	DAYOFWEEK(record_day),
 	covariance(parkinsons, age),
 	covariance(parkinsons, lat_var),
 	covariance(parkinsons, long_var),
-	covariance(parkinsons, lat_traveled),
-	covariance(parkinsons, long_traveled),
-	covariance(parkinsons, lat_range),
-	covariance(parkinsons, long_range)
+	covariance(parkinsons, gps_traveled),
+	covariance(parkinsons, gps_range)
 FROM agg_per_hour
-WHERE lat_var < 1 AND long_var < 1
 GROUP BY DAYOFWEEK(record_day);
 
 # Generate Correlation By Date and Hour - Grouped By Day Of Week
@@ -318,22 +246,17 @@ CREATE OR REPLACE VIEW cor_per_hour_gb_dayofweek_view
 	cor_age,
 	cor_lat_var,
 	cor_long_var,
-	cor_lat_traveled,
-	cor_long_traveled,
-	cor_lat_range,
-	cor_long_range
+	cor_gps_traveled,
+	cor_gps_range
 )
 AS SELECT
 	DAYOFWEEK(record_day),
 	covariance(parkinsons, age) / (STDDEV(parkinsons)*STDDEV(age)),
 	covariance(parkinsons, lat_var) / (STDDEV(parkinsons)*STDDEV(lat_var)),
 	covariance(parkinsons, long_var) / (STDDEV(parkinsons)*STDDEV(long_var)),
-	covariance(parkinsons, lat_traveled) / (STDDEV(parkinsons)*STDDEV(lat_traveled)),
-	covariance(parkinsons, long_traveled) / (STDDEV(parkinsons)*STDDEV(long_traveled)),
-	covariance(parkinsons, lat_range) / (STDDEV(parkinsons)*STDDEV(lat_range)),
-	covariance(parkinsons, long_range) / (STDDEV(parkinsons)*STDDEV(long_range))
+	covariance(parkinsons, gps_traveled) / (STDDEV(parkinsons)*STDDEV(gps_traveled)),
+	covariance(parkinsons, gps_range) / (STDDEV(parkinsons)*STDDEV(gps_range))
 FROM agg_per_hour
-WHERE lat_var < 1 AND long_var < 1
 GROUP BY DAYOFWEEK(record_day);
 
 
@@ -346,22 +269,17 @@ CREATE OR REPLACE VIEW cov_per_hour_gb_week_view
 	cov_age,
 	cov_lat_var,
 	cov_long_var,
-	cov_lat_traveled,
-	cov_long_traveled,
-	cov_lat_range,
-	cov_long_range
+	cov_gps_traveled,
+	cov_gps_range
 )
 AS SELECT
 	DATE_FORMAT(record_day, '%Y %u'),
 	covariance(parkinsons, age),
 	covariance(parkinsons, lat_var),
 	covariance(parkinsons, long_var),
-	covariance(parkinsons, lat_traveled),
-	covariance(parkinsons, long_traveled),
-	covariance(parkinsons, lat_range),
-	covariance(parkinsons, long_range)
+	covariance(parkinsons, gps_traveled),
+	covariance(parkinsons, gps_range)
 FROM agg_per_hour
-WHERE lat_var < 1 AND long_var < 1
 GROUP BY DATE_FORMAT(record_day, '%Y %u');
 
 # Generate Correlation By Date and Hour - Grouped By Week
@@ -372,20 +290,15 @@ CREATE OR REPLACE VIEW cor_per_hour_gb_week_view
 	cor_age,
 	cor_lat_var,
 	cor_long_var,
-	cor_lat_traveled,
-	cor_long_traveled,
-	cor_lat_range,
-	cor_long_range
+	cor_gps_traveled,
+	cor_gps_range
 )
 AS SELECT
 	DATE_FORMAT(record_day, '%Y %u'),
 	covariance(parkinsons, age) / (STDDEV(parkinsons)*STDDEV(age)),
 	covariance(parkinsons, lat_var) / (STDDEV(parkinsons)*STDDEV(lat_var)),
 	covariance(parkinsons, long_var) / (STDDEV(parkinsons)*STDDEV(long_var)),
-	covariance(parkinsons, lat_traveled) / (STDDEV(parkinsons)*STDDEV(lat_traveled)),
-	covariance(parkinsons, long_traveled) / (STDDEV(parkinsons)*STDDEV(long_traveled)),
-	covariance(parkinsons, lat_range) / (STDDEV(parkinsons)*STDDEV(lat_range)),
-	covariance(parkinsons, long_range) / (STDDEV(parkinsons)*STDDEV(long_range))
+	covariance(parkinsons, gps_traveled) / (STDDEV(parkinsons)*STDDEV(gps_traveled)),
+	covariance(parkinsons, gps_range) / (STDDEV(parkinsons)*STDDEV(gps_range))
 FROM agg_per_hour
-WHERE lat_var < 1 AND long_var < 1
 GROUP BY DATE_FORMAT(record_day, '%Y %u');

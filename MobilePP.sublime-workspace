@@ -4,6 +4,90 @@
 		"selected_items":
 		[
 			[
+				"prob_",
+				"prob_c_given_p"
+			],
+			[
+				"close",
+				"closeConnection"
+			],
+			[
+				"num",
+				"num_classes"
+			],
+			[
+				"prob_p",
+				"prob_p_given_class"
+			],
+			[
+				"prob_cl",
+				"prob_class"
+			],
+			[
+				"prob_class",
+				"prob_class_given_p"
+			],
+			[
+				"prob",
+				"prob_class2givenP"
+			],
+			[
+				"white",
+				"whitened"
+			],
+			[
+				"group_by",
+				"group_by_statement"
+			],
+			[
+				"statsAggPerD",
+				"statsAggPerDayGroupByDayOfWeek"
+			],
+			[
+				"long_rag",
+				"long_range"
+			],
+			[
+				"parkinsons",
+				"parkinsons_query"
+			],
+			[
+				"park",
+				"prob_parkinsons"
+			],
+			[
+				"long",
+				"long_var_sig"
+			],
+			[
+				"long_",
+				"long_var_mu"
+			],
+			[
+				"record",
+				"record_day"
+			],
+			[
+				"rec",
+				"record_hour"
+			],
+			[
+				"sod",
+				"sod"
+			],
+			[
+				"covar",
+				"covariange_reset"
+			],
+			[
+				"sumX",
+				"sumX"
+			],
+			[
+				"sumOfD",
+				"sumOfDifferences_init"
+			],
+			[
 				"squareVer",
 				"squareVerticesColorBuffer"
 			],
@@ -23,31 +107,108 @@
 			"file": "main.py",
 			"settings":
 			{
-				"buffer_size": 133,
+				"buffer_size": 6498,
 				"line_ending": "Windows"
 			}
 		},
 		{
-			"file": "/C/Users/sl7v6/AppData/Roaming/Sublime Text 2/Packages/Python/Python.sublime-build",
+			"file": "naive.py",
 			"settings":
 			{
-				"buffer_size": 234,
+				"buffer_size": 36181,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "MySQL_Functions/aggregates.c",
+			"settings":
+			{
+				"buffer_size": 6318,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "MySQL_Functions/aggregates.def",
+			"settings":
+			{
+				"buffer_size": 300,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/C/Users/sl7v6/Downloads/scatter3d_demo.py",
+			"settings":
+			{
+				"buffer_size": 527,
 				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "PrepDB.sql",
+			"settings":
+			{
+				"buffer_size": 702,
+				"line_ending": "Windows",
+				"name": "CREATE TABLE User ("
+			}
+		},
+		{
+			"file": "AggPerHour.sql",
+			"settings":
+			{
+				"buffer_size": 7074,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "AggPerDay.sql",
+			"settings":
+			{
+				"buffer_size": 7236,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "AggPerWeek.sql",
+			"settings":
+			{
+				"buffer_size": 1617,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "AggPerMonth.sql",
+			"settings":
+			{
+				"buffer_size": 1990,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "README.md",
+			"settings":
+			{
+				"buffer_size": 1990,
+				"line_ending": "Windows"
 			}
 		}
 	],
 	"build_system": "",
 	"command_palette":
 	{
-		"height": 0.0,
+		"height": 242.0,
 		"selected_items":
 		[
+			[
+				":w",
+				":w - Save"
+			]
 		],
-		"width": 0.0
+		"width": 392.0
 	},
 	"console":
 	{
-		"height": 0.0
+		"height": 125.0
 	},
 	"distraction_free":
 	{
@@ -60,13 +221,34 @@
 	},
 	"file_history":
 	[
-		"/C/Users/sl7v6/AppData/Roaming/Sublime Text 2/Packages/Vintage/README.TXT",
+		"/C/Users/sl7v6/Documents/GitHub/MobileParkinsonsPrediction/ByDay.sql",
+		"/C/Users/sl7v6/Documents/GitHub/MobileParkinsonsPrediction/LoadDataLocalInfile.sql",
+		"/C/Users/sl7v6/Documents/GitHub/MobileParkinsonsPrediction/.gitignore",
+		"/C/Users/sl7v6/Documents/GitHub/MobileParkinsonsPrediction/MySQL_Functions/CMakeLists.txt",
+		"/C/Users/sl7v6/Documents/GitHub/MobileParkinsonsPrediction/aggregates.def",
+		"/C/Users/sl7v6/Documents/GitHub/MobileParkinsonsPrediction/aggregates.c",
+		"/C/Users/sl7v6/Documents/GitHub/MobileParkinsonsPrediction/CMakeLists.txt",
+		"/C/Users/sl7v6/Documents/GitHub/MobileParkinsonsPrediction/main.py",
+		"/C/Users/sl7v6/Documents/GitHub/MobileParkinsonsPrediction/loadGpsPerFile",
+		"/C/Users/sl7v6/Documents/GitHub/MobileParkinsonsPrediction/loadDataLocalInfile.sql.backup.sql",
+		"/C/Python32/Lib/site-packages/mysql/connector/connection.py",
+		"/C/Users/sl7v6/Documents/GitHub/MobileParkinsonsPrediction/APPLE.sql",
+		"/C/Users/sl7v6/Documents/GitHub/MobileParkinsonsPrediction/Data/HumDynLog_APPLE_LGE_LGE_A0000028AF9C96_20120109_180000_20120109_190000/hdl_gps_APPLE_20120109_180000.csv",
+		"/C/Users/sl7v6/Documents/GitHub/MobileParkinsonsPrediction/Data/HumDynLog_APPLE_LGE_LGE_A0000028AF9C96_20111221_200001_20111221_210000/hdl_gps_APPLE_20111221_200001.csv",
+		"/C/Users/sl7v6/Documents/GitHub/MobileParkinsonsPrediction/Data/HumDynLog_ORCHID_LGE_LGE_A000002849A7DA_20120124_083145_20120124_090000/hdl_light_ORCHID.log",
+		"/C/Users/sl7v6/Documents/GitHub/MobileParkinsonsPrediction/Data/HumDynLog_ORCHID_LGE_LGE_A000002849A7DA_20120124_083145_20120124_090000/hdl_meta_ORCHID_20120124_083145.csv",
+		"/C/Users/sl7v6/Documents/GitHub/MobileParkinsonsPrediction/Data/HumDynLog_ORCHID_LGE_LGE_A000002849A7DA_20120124_083145_20120124_090000/hdl_main_ORCHID.log",
+		"/C/Users/sl7v6/Documents/GitHub/MobileParkinsonsPrediction/Data/HumDynLog_APPLE_LGE_LGE_A0000028AF9C96_20111221_200001_20111221_210000/hdl_gps_APPLE.log",
+		"/C/Users/sl7v6/Documents/GitHub/MobileParkinsonsPrediction/loadData.py",
+		"/C/Users/sl7v6/Documents/GitHub/MobileParkinsonsPrediction/Data/HumDynLog_APPLE_LGE_LGE_A0000028AF9C96_20120106_143151_20120106_144844/hdl_gps_APPLE_20120106_143151.csv",
+		"/C/Users/sl7v6/Documents/GitHub/MobileParkinsonsPrediction/Data/HumDynLog_APPLE_LGE_LGE_A0000028AF9C96_20120106_145932_20120106_150000/hdl_gps_APPLE.log",
+		"/C/Users/sl7v6/Documents/GitHub/MobileParkinsonsPrediction/Data/HumDynLog_APPLE_LGE_LGE_A0000028AF9C96_20111220_115314_20111220_115320/hdl_accel_APPLE.log",
 		"/C/Users/sl7v6/AppData/Roaming/Sublime Text 2/Packages/Default/Preferences.sublime-settings",
 		"/C/Users/sl7v6/AppData/Roaming/Sublime Text 2/Packages/Python/Python.sublime-build",
+		"/C/Users/sl7v6/AppData/Roaming/Sublime Text 2/Packages/Vintage/README.TXT",
 		"/C/Users/sl7v6/AppData/Roaming/Sublime Text 2/Pristine Packages/Python.sublime-package",
 		"/C/Users/sl7v6/Documents/GitHub/MobileParkinsonsPrediction/MobilePP.sublime-project",
 		"/C/Users/sl7v6/Documents/GitHub/MobileParkinsonsPrediction/README.md",
-		"/C/Users/sl7v6/Documents/GitHub/MobileParkinsonsPrediction/main.py",
 		"/C/wamp/www/SISLTMSLS/SISLTMSLS.sublime-project",
 		"/C/wamp/www/SISLTMSLS/.gitignore",
 		"/C/wamp/www/SISLTMSLS/index.html",
@@ -94,9 +276,83 @@
 	},
 	"find_state":
 	{
-		"case_sensitive": false,
+		"case_sensitive": true,
 		"find_history":
 		[
+			"print\\(",
+			"print(",
+			"Latitude",
+			"Longitude",
+			"Lat_",
+			"e\\.strerror",
+			"ProgrammingError e",
+			"except:",
+			"parkinsons = 1",
+			"lat_traveled",
+			"lat_range",
+			"closeConnection\\(\\)",
+			"closeConnection()\\n",
+			"lat_var < 1 AND long_var < 1",
+			"num_classes",
+			"range",
+			"traveled",
+			"range",
+			"long_traveled",
+			"lat_traveled",
+			"long_range",
+			"lat_range",
+			"(.*[ ])lat_range(\\).*\\n)",
+			".*[ ]lat_range\\).*\\n",
+			".*[ ]long_traveled\\).*\\n",
+			"cor_lat_traveled",
+			"cor_long_range",
+			"[\\s]cor_lat_range,\\n",
+			"[\\s]cor_long_traveled,\\n",
+			"sumOfDifferences",
+			"aa",
+			"SOD",
+			"sod",
+			"OfDifferences",
+			"stddev",
+			"prob",
+			":\n",
+			"_per_hour_overall",
+			"day",
+			"_per_day_gb_dayofweek",
+			"_per_day",
+			"agg_per_day",
+			"GROUP BY parkinsons",
+			"day_overall_view",
+			"traveled",
+			"lat_range < 1 AND long_range < 1",
+			"-117",
+			"gb_dayofweek",
+			"overall",
+			"cov_long_range",
+			"L",
+			"Parkinsons",
+			"V",
+			"L",
+			"Cor",
+			"\\([A-Z][a-z]*\\)\\([A-Z][a-z]*\\)",
+			"DATABASE",
+			"Day",
+			"ByDay",
+			"ByDate",
+			"dll",
+			"ByWeek",
+			"ByDayOfWeek",
+			"Week",
+			"day",
+			"None",
+			"False",
+			"True",
+			"sumOfDifferences",
+			"infile",
+			"local",
+			"''",
+			"remove if not testing",
+			"patient",
 			"\\t",
 			"\" :",
 			"vertexPositionAttribute",
@@ -106,11 +362,64 @@
 			">\n"
 		],
 		"highlight": true,
-		"in_selection": true,
+		"in_selection": false,
 		"preserve_case": false,
 		"regex": true,
 		"replace_history":
 		[
+			"GPS_",
+			"e",
+			"ProgrammingError as e",
+			"except ProgrammingError e:\\n\\t\\tprint\\(\"Query Error --- \\{0\\}::\\{1\\}\".format\\(e.errno, e.strerror\\)\\)",
+			"gps_traveled",
+			"gps_range",
+			"closeConnection\\(\\)\\n\\t\\tsys.exit\\(\\)",
+			"closeConnection\\(\\)\\nsys.exit\\(\\)",
+			"closeConnection()\\nsys.exit()",
+			"",
+			"k",
+			"gps_range",
+			"gps_traveled",
+			"gps_range",
+			"traveled",
+			"range",
+			"",
+			"cor_traveled",
+			"cor_range",
+			"",
+			"sumEuclidianDistance",
+			"SED",
+			"sed",
+			"EuclidianDistance",
+			"VARIANCE",
+			"_per_day_gb_dayofweek",
+			"_per_hour_overall",
+			"_per_hour",
+			"agg_per_hour",
+			"GROUP BY name, parkinsons",
+			"day_gb_dayofweek_view",
+			"range",
+			"lat_var < 1 AND long_var < 1",
+			"gb_week",
+			"gb_dayofweek",
+			"l",
+			"parkinsons",
+			"_v",
+			"l",
+			"cor_",
+			"ByDate",
+			"ByDateHour",
+			"ByDate",
+			"ByDateHour",
+			"ByDay",
+			"ByWeek",
+			"DayOfWeek",
+			"Week",
+			"\\'NULL\\'",
+			"0",
+			"1",
+			"covariance",
+			"subjectNames[0]",
 			"    ",
 			" ="
 		],
@@ -123,7 +432,7 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 1,
 			"sheets":
 			[
 				{
@@ -131,15 +440,128 @@
 					"file": "main.py",
 					"settings":
 					{
-						"buffer_size": 133,
+						"buffer_size": 6498,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								133,
-								133
+								2862,
+								2866
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1147.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "naive.py",
+					"settings":
+					{
+						"buffer_size": 36181,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								36137,
+								36137
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 19458.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "MySQL_Functions/aggregates.c",
+					"settings":
+					{
+						"buffer_size": 6318,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3688,
+								3688
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1776.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "MySQL_Functions/aggregates.def",
+					"settings":
+					{
+						"buffer_size": 300,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								200,
+								200
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
+			]
+		},
+		{
+			"selected": 2,
+			"sheets":
+			[
+				{
+					"buffer": 4,
+					"file": "/C/Users/sl7v6/Downloads/scatter3d_demo.py",
+					"settings":
+					{
+						"buffer_size": 527,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
 							]
 						],
 						"settings":
@@ -153,24 +575,160 @@
 					"type": "text"
 				},
 				{
-					"buffer": 1,
-					"file": "/C/Users/sl7v6/AppData/Roaming/Sublime Text 2/Packages/Python/Python.sublime-build",
+					"buffer": 5,
+					"file": "PrepDB.sql",
 					"settings":
 					{
-						"buffer_size": 234,
+						"buffer_size": 702,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								147,
-								147
+								266,
+								266
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/JavaScript/JSON.tmLanguage"
+							"auto_name": "CREATE TABLE User (",
+							"syntax": "Packages/SQL/SQL.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "AggPerHour.sql",
+					"settings":
+					{
+						"buffer_size": 7074,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								4792,
+								4792
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/SQL/SQL.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 2970.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "AggPerDay.sql",
+					"settings":
+					{
+						"buffer_size": 7236,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								204,
+								204
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/SQL/SQL.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "AggPerWeek.sql",
+					"settings":
+					{
+						"buffer_size": 1617,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								843,
+								843
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/SQL/SQL.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "AggPerMonth.sql",
+					"settings":
+					{
+						"buffer_size": 1990,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1989,
+								1989
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/SQL/SQL.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 630.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 10,
+					"file": "README.md",
+					"settings":
+					{
+						"buffer_size": 1990,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1990,
+								1990
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Markdown/Markdown.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -183,7 +741,7 @@
 	],
 	"incremental_find":
 	{
-		"height": 0.0
+		"height": 34.0
 	},
 	"input":
 	{
@@ -198,11 +756,18 @@
 				0,
 				1,
 				1
+			],
+			[
+				1,
+				0,
+				2,
+				1
 			]
 		],
 		"cols":
 		[
 			0.0,
+			0.5,
 			1.0
 		],
 		"rows":
@@ -241,6 +806,6 @@
 	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 150.0,
+	"side_bar_width": 199.0,
 	"status_bar_visible": true
 }

@@ -52,38 +52,46 @@ Taken from udf_example.c from MySQL Source
 #endif
 
 /*
-START Sum Of Differences
+START Sum Euclidian Distance
 */
 
-typedef struct sod {
-	double sod; // Sum Of Differences variable
-	double prev; // Previous value, to be compared to current
+typedef struct sed {
+	double sed; // Sum Euclidian Distance variable
+	double *prev; // Previous value array, to be compared to current
 	int new;
-} SOD;
+} SED;
 
 
-my_bool	sumOfDifferences_init(UDF_INIT *initid, UDF_ARGS *args, char *message);
-void	sumOfDifferences_deinit(UDF_INIT *initid, UDF_ARGS *args, char *message);
-void	sumOfDifferences_reset(UDF_INIT *initid, UDF_ARGS *args, char *is_null, char *error);
-void	sumOfDifferences_clear(UDF_INIT *initid, char *is_null, char *error);
-void	sumOfDifferences_add(UDF_INIT *initid, UDF_ARGS *args, char *is_null, char *error);
-double	sumOfDifferences(UDF_INIT *initid, UDF_ARGS *args, char *is_null, char *error);
+my_bool	sumEuclidianDistance_init(UDF_INIT *initid, UDF_ARGS *args, char *message);
+void	sumEuclidianDistance_deinit(UDF_INIT *initid, UDF_ARGS *args, char *message);
+void	sumEuclidianDistance_reset(UDF_INIT *initid, UDF_ARGS *args, char *is_null, char *error);
+void	sumEuclidianDistance_clear(UDF_INIT *initid, char *is_null, char *error);
+void	sumEuclidianDistance_add(UDF_INIT *initid, UDF_ARGS *args, char *is_null, char *error);
+double	sumEuclidianDistance(UDF_INIT *initid, UDF_ARGS *args, char *is_null, char *error);
 
-my_bool	sumOfDifferences_init(UDF_INIT *initid, UDF_ARGS *args, char *message)
+my_bool	sumEuclidianDistance_init(UDF_INIT *initid, UDF_ARGS *args, char *message)
 {
-	SOD* sod;
+	SED* sed;
+	int i;
 
-	if( args->arg_count != 1) {
-		strcpy(message, "sumOfDifferences() requres one argument");
+	if( args->arg_count < 1) {
+		strcpy(message, "sumEuclidianDistance() requres at least one argument");
 		return 1;
 	}
 
-	sod = malloc(sizeof(SOD));
-	sod->sod = 0.0;
-	sod->prev = 0.0;
-	sod->new = 1;
+	for(i = 0 ; i < args->arg_count ; i++) {
+		if(args->arg_type[i] == STRING_RESULT || args->arg_type[i] == DECIMAL_RESULT) {
+			strcpy(message, "sumEuclidianDistance() requires numerical values");
+			return 1;
+		}
+	}
 
-	initid->ptr = (char*) sod;
+	sed = malloc(sizeof(SED));
+	sed->sed = 0.0;
+	sed->prev = malloc(sizeof(double)*args->arg_count);
+	sed->new = 1;
+
+	initid->ptr = (char*) sed;
 
 	initid->maybe_null = 0;
 	initid->decimals = 16;
@@ -92,59 +100,81 @@ my_bool	sumOfDifferences_init(UDF_INIT *initid, UDF_ARGS *args, char *message)
 	return 0;
 }
 
-void sumOfDifferences_deinit(UDF_INIT *initid, UDF_ARGS *args, char *message)
+void sumEuclidianDistance_deinit(UDF_INIT *initid, UDF_ARGS *args, char *message)
 {
-	free((SOD*) (initid->ptr));
+	free((SED*) (initid->ptr));
 }
 
-void sumOfDifferences_reset(UDF_INIT *initid, UDF_ARGS *args, char *is_null, char *error)
+void sumEuclidianDistance_reset(UDF_INIT *initid, UDF_ARGS *args, char *is_null, char *error)
 {
-	SOD* sod;
-	sod = (SOD*) (initid->ptr);
-	sod->sod = 0.0;
-	sod->prev = *((double*)(args->args[0]));
-	sod->new = 0;
+	SED* sed;
+	double *cur;
+	int i;
+
+	sed = (SED*) (initid->ptr);
+
+	cur = malloc(sizeof(double)*args->arg_count);
+
+	sed->sed = 0.0;
+	for(i = 0 ; i < args->arg_count ; i++) {
+		if(args->arg_type[0] == INT_RESULT)
+			cur[i] = (double)*((int*)(args->args[i]));
+		else
+			cur[i] = (double)*((double*) (args->args[i]));
+	}
+
+	sed->prev = cur;
+
+	sed->new = 1;
 }
 
-void sumOfDifferences_clear(UDF_INIT *initid, char *is_null, char *error)
+void sumEuclidianDistance_clear(UDF_INIT *initid, char *is_null, char *error)
 {
-	SOD* sod;
-	sod = (SOD*)(initid->ptr);
-	sod->sod = 0.0;
-	sod->prev = 0.0;
-	sod->new = 1;
+	SED* sed;
+	sed = (SED*)(initid->ptr);
+	sed->new = 1;
 }
 
-void sumOfDifferences_add(UDF_INIT *initid, UDF_ARGS *args, char *is_null, char *error)
+void sumEuclidianDistance_add(UDF_INIT *initid, UDF_ARGS *args, char *is_null, char *error)
 {
-	SOD* sod;
-	double cur;
+	SED* sed;
+	double *cur;
+	double distance;
+	int i;
 
-	sod = (SOD*) (initid->ptr);
+	sed = (SED*) (initid->ptr);
 
-	if(args->arg_type[0] == INT_RESULT)
-		cur = (double)*((int*)(args->args[0]));
-	else
-		cur = (double)*((double*) (args->args[0]));
+	distance = 0.0;
 
-	if(!sod->new) {
-		sod->sod += fabs(cur-sod->prev);
+	cur = malloc(sizeof(double)*args->arg_count);
+	for(i = 0 ; i < args->arg_count ; i++) {
+		if(args->arg_type[0] == INT_RESULT)
+			cur[i] = (double)*((int*)(args->args[i]));
+		else
+			cur[i] = (double)*((double*) (args->args[i]));
+		distance += pow(cur[i]-(sed->prev[i]),2);
+	}
+
+	if(!sed->new) {
+		sed->sed += sqrt(distance);
+	} else {
+		sed->sed = 0.0;
 	}
 	
-	sod->new = 0;
+	sed->new = 0;
 
-	sod->prev = cur;
+	sed->prev = cur;
 }
 
-double sumOfDifferences(UDF_INIT *initid, UDF_ARGS *args, char *is_null, char *error)
+double sumEuclidianDistance(UDF_INIT *initid, UDF_ARGS *args, char *is_null, char *error)
 {
-	SOD* sod;
-	sod = (SOD*)(initid->ptr);
-	return sod->sod;
+	SED* sed;
+	sed = (SED*)(initid->ptr);
+	return sed->sed;
 }
 
 /*
-END Sum Of Differences
+END Euclidian Distance
 */
 
 
@@ -161,12 +191,12 @@ typedef struct cov {
 } COV;
 
 
-my_bool	covriaance_init(UDF_INIT *initid, UDF_ARGS *args, char *message);
-void	covriaance_deinit(UDF_INIT *initid, UDF_ARGS *args, char *message);
-void	covriaance_reset(UDF_INIT *initid, UDF_ARGS *args, char *is_null, char *error);
-void	covriaance_clear(UDF_INIT *initid, char *is_null, char *error);
-void	covriaance_add(UDF_INIT *initid, UDF_ARGS *args, char *is_null, char *error);
-double	covriaance(UDF_INIT *initid, UDF_ARGS *args, char *is_null, char *error);
+my_bool	covriance_init(UDF_INIT *initid, UDF_ARGS *args, char *message);
+void	covriance_deinit(UDF_INIT *initid, UDF_ARGS *args, char *message);
+void	covriance_reset(UDF_INIT *initid, UDF_ARGS *args, char *is_null, char *error);
+void	covriance_clear(UDF_INIT *initid, char *is_null, char *error);
+void	covriance_add(UDF_INIT *initid, UDF_ARGS *args, char *is_null, char *error);
+double	covriance(UDF_INIT *initid, UDF_ARGS *args, char *is_null, char *error);
 
 my_bool covariance_init(UDF_INIT *initid, UDF_ARGS *args, char *message)
 {
