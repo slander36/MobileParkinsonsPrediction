@@ -4,6 +4,30 @@
 		"selected_items":
 		[
 			[
+				"prob_c",
+				"prob_c_given_not_p"
+			],
+			[
+				"prob",
+				"prob_c_given_not_p"
+			],
+			[
+				"prob_c_",
+				"prob_c_given_p"
+			],
+			[
+				"num_c",
+				"num_c_given_not_p"
+			],
+			[
+				"parti",
+				"partial_not_parkinsons"
+			],
+			[
+				"test",
+				"test_points"
+			],
+			[
 				"prob_",
 				"prob_c_given_p"
 			],
@@ -26,10 +50,6 @@
 			[
 				"prob_class",
 				"prob_class_given_p"
-			],
-			[
-				"prob",
-				"prob_class2givenP"
 			],
 			[
 				"white",
@@ -115,7 +135,7 @@
 			"file": "naive.py",
 			"settings":
 			{
-				"buffer_size": 36243,
+				"buffer_size": 37559,
 				"line_ending": "Windows"
 			}
 		},
@@ -156,7 +176,7 @@
 			"file": "README.md",
 			"settings":
 			{
-				"buffer_size": 2079,
+				"buffer_size": 4319,
 				"line_ending": "Windows"
 			}
 		}
@@ -189,6 +209,7 @@
 	},
 	"file_history":
 	[
+		"/C/Users/Sean/Google Drive/School/S13-CS8750_AI2/Parkinsons Challenge/Code and Credits.txt",
 		"/C/SD/Github/MobileParkinsonsPrediction/MySQL_Functions/aggregates.c",
 		"/C/SD/Github/MobileParkinsonsPrediction/MySQL_Functions/CMakeLists.txt",
 		"/D/Github/MobileParkinsonsPrediction/AggPerWeek.sql",
@@ -255,6 +276,7 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"print\\(",
 			"gps_gps",
 			"print\\(",
 			"print(",
@@ -410,7 +432,7 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 0,
 			"sheets":
 			[
 				{
@@ -425,8 +447,8 @@
 						"selection":
 						[
 							[
-								5846,
-								5846
+								6447,
+								6447
 							]
 						],
 						"settings":
@@ -434,8 +456,8 @@
 							"syntax": "Packages/Python/Python.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
-						"translation.x": 0.0,
-						"translation.y": 3857.0,
+						"translation.x": 145.0,
+						"translation.y": 3992.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -445,15 +467,15 @@
 					"file": "naive.py",
 					"settings":
 					{
-						"buffer_size": 36243,
+						"buffer_size": 37559,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								35060,
-								35060
+								35269,
+								35269
 							]
 						],
 						"settings":
@@ -462,7 +484,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 19495.0,
+						"translation.y": 19467.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -575,8 +597,8 @@
 							"syntax": "Packages/SQL/SQL.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
-						"translation.x": 56.0,
-						"translation.y": 745.0,
+						"translation.x": 114.0,
+						"translation.y": 765.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -586,15 +608,15 @@
 					"file": "README.md",
 					"settings":
 					{
-						"buffer_size": 2079,
+						"buffer_size": 4319,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2079,
-								2079
+								2646,
+								2646
 							]
 						],
 						"settings":
@@ -602,7 +624,7 @@
 							"syntax": "Packages/Markdown/Markdown.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 750.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -650,7 +672,7 @@
 	"menu_visible": true,
 	"output.exec":
 	{
-		"height": 137.0
+		"height": 236.0
 	},
 	"replace":
 	{
