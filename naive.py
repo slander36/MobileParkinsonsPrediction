@@ -1146,8 +1146,8 @@ def kmeans(points, tags, k = 2, laplace = 1):
 	# In order to calculate the standard deviation and mean
 	std = np.std(points_array, axis=1)[0]
 	mean = np.mean(points_array, axis=1)[0]
-	print(std)
-	print(mean)
+	# print(std)
+	# print(mean)
 
 	# For each variable in the fields array
 	for i in range(num_fields):
@@ -1176,42 +1176,57 @@ def kmeans(points, tags, k = 2, laplace = 1):
 	cluster_centroids = clusters[0]
 	cluster_tags = clusters[1]
 
+	# print(cluster_tags[0])
+	# print(tags[0])
+
 	# Assign cluster tag to tags array
 	for i in range(len(cluster_tags)):
 		tags[i].append(cluster_tags[i])
 
 	tags = array(tags)
+
+	# print(tags)
+	# print(tags[:,1])
 	# Create a figure
-	fig = pl.figure()
-	ax = Axes3D(fig)
+	if num_fields == 1:
+		pl.hist(features)
+		pl.hist(cluster_centroids[:,0])
 	if num_fields == 2:
-		ax.scatter(features[:,0], features[:,1], c=tags[:,1])
-		ax.scatter(clusters[0][:,0], clusters[0][:,1], c='r')
+		pl.scatter(features[:,0], features[:,1], c=tags[:,1])
+		pl.scatter(cluster_centroids[:,0], cluster_centroids[:,1], c='r')
 	if num_fields == 3:
+		fig = pl.figure()
+		ax = Axes3D(fig)
 		ax.scatter(features[:,0],features[:,1],features[:,2], c=tags[:,1])
-		ax.scatter(clusters[0][:,0], clusters[0][:,1], clusters[0][:,2], c='r')
+		ax.scatter(cluster_centroids[:,0], cluster_centroids[:,1], cluster_centroids[:,2], c='r')
 	pl.show()
 
-	num_p = [0] * 2
+	num_p = 0
 	total_points = 0
 	num_c = [0] * k
-	num_c_given_p = [[0] * k] * 2
+	num_c_given_p = [0] * k
+	num_c_given_not_p = [0] * k
 
 	# [p,c]
 	for tag in tags:
-		num_p[tag[0]] += 1
 		num_c[tag[1]] += 1
-		num_c_given_p[tag[0]][tag[1]] += 1
 		total_points += 1
+		if tag[0] == 1:
+			num_p += 1
+			num_c_given_p[tag[1]] += 1
+		if tag[0] == 0:
+			num_c_given_not_p[tag[1]] += 1
 
-	prob_p = [1] * 2
 	prob_c = [1] * k
-	prob_c_given_p = [[1] * k] * 2
+	prob_c_given_p = [1] * k
+	prob_c_given_not_p = [1] * k
 
-	for p in range(len(num_p)):
-		prob_p[p] = (num_p[p] + laplace) / (total_points + (2 * laplace))
-		for c in range(len(num_c)):
-			prob_c_given_p[p][c] = (num_c_given_p[p][c] + laplace) / (num_p[p] + (k * laplace))
+	prob_p = (num_p + laplace) / (total_points + (2 * laplace))
+	prob_not_p = 1 - prob_p
+
+	for c in range(len(num_c)):
+		prob_c_given_p[c] = (num_c_given_p[c] + laplace) / (num_p + (k * laplace))
+		prob_c_given_not_p[c] = (num_c_given_not_p[c] + laplace) / ((total_points - num_p) + (k * laplace))
 
 	for c in range(len(num_c)):
 		prob_c[c] = (num_c[c] + laplace) / (total_points + (k * laplace))
@@ -1220,7 +1235,8 @@ def kmeans(points, tags, k = 2, laplace = 1):
 		'k': k,
 		'centroids': cluster_centroids,
 		'prob_c': prob_c,
-		'prob_c_given_p' : prob_c_given_p
+		'prob_c_given_p' : prob_c_given_p,
+		'prob_c_given_not_p' : prob_c_given_not_p
 	}
 
 	return (node,prob_p)
@@ -1233,6 +1249,7 @@ def naive_node(node, point):
 	centroids = node['centroids']
 	prob_c = node['prob_c']
 	prob_c_given_p = node['prob_c_given_p']
+	prob_c_given_not_p = node['prob_c_given_not_p']
 
 	tag = 0
 	closest = sum_squared_errors(point, centroids[0])
@@ -1242,7 +1259,7 @@ def naive_node(node, point):
 		if distance < closest:
 			tag = i
 
-	return ((prob_c_given_p[0][tag] / prob_c[tag]),(prob_c_given_p[1][tag] / prob_c[tag]))
+	return ((prob_c_given_p[tag] / prob_c[tag]),(prob_c_given_not_p[tag] / prob_c[tag]))
 
 def sum_squared_errors(point, centroid):
 	return sum(pow((point - centroid),2))
@@ -1264,7 +1281,6 @@ def generate_training(table, fields):
 		print("Query Error --- {0}::{1}".format(e.errno, e))
 		print(query)
 		closeConnection()
-		sys.exit()
 		sys.exit()
 
 	# Get the query results
@@ -1291,26 +1307,40 @@ if __name__ == '__main__':
 	##
 
 	# Get the stats for agg_per_hour overall
-	statsAggPerHourOverall()
+	# statsAggPerHourOverall()
 
 	# Get the stats for agg_per_day overall
 	statsAggPerDayOverall()
 
 	# Get the stats for agg_per_day gb_dayofweek
-	statsAggPerDayGroupByDayOfWeek()
+	# statsAggPerDayGroupByDayOfWeek()
 
 	##
 	## Naive Bayes Approach
 	##
 
 	table = 'agg_per_day'
-	fields = ['gps_range','gps_traveled']
+	fields = ['age', 'lat_var', 'long_var', 'gps_range','gps_traveled']
 
 	points, tags = generate_training(table, fields)
 
+	age = [[x[0]] for x in points]
+	variance = [ [x[1],x[2]] for x in points]
+	gps_range = [ [x[3]] for x in points]
+	gps_traveled = [ [x[4]] for x in points]
+
 	nodes = []
-	node, prob_p = kmeans(points, tags, 10, 10)
-	nodes.append(node)
+	age_node, prob_p = kmeans(age, tags, 2, 1)
+	nodes.append(age_node)
+	tags = [ [tag[0]] for tag in tags ]
+	variance_node, prob_p = kmeans(variance, tags, 2, 1)
+	nodes.append(variance_node)
+	tags = [ [tag[0]] for tag in tags ]
+	range_node, prob_p = kmeans(gps_range, tags, 2, 1)
+	nodes.append(range_node)
+	tags = [ [tag[0]] for tag in tags ]
+	traveled_node, prob_p = kmeans(gps_traveled, tags, 2, 1)
+	nodes.append(traveled_node)
 	# and add more on...
 
 	# Create the cursor object
@@ -1327,35 +1357,52 @@ if __name__ == '__main__':
 		print(query)
 		closeConnection()
 		sys.exit()
-		sys.exit()
 
 	# Get the query results
 	results = cursor.fetchall()
 
-	# Get a random sampling of ~80% to train with
-	results = random.sample(results, round(len(results)*.8))
+	# Get a random sampling of ~20% to test with
+	results = random.sample(results, round(len(results)*.2))
 
 	# Set Variables
 	num_fields = len(fields)
 
 	points, tags = rows_to_points_and_tags(results,num_fields)
 
-	print(array(points))
+	test_points = []
 
-	probs = [[1,1]] * len(points)
+	age = [[x[0]] for x in points]
+	test_points.append(age)
+	variance = [ [x[1],x[2]] for x in points]
+	test_points.append(variance)
+	gps_range = [ [x[3]] for x in points]
+	test_points.append(gps_range)
+	gps_traveled = [ [x[4]] for x in points]
+	test_points.append(gps_traveled)
+
+	P = [1] * len(points)
+	NP = [1] * len(points)
 
 	for i in range(len(points)):
 		for j in range(len(nodes)):
-			partial_parkinsons, partial_not_parkinsons = naive_node(nodes[j], points[i])
-			probs[i][0] *= partial_parkinsons
-			probs[i][1] *= partial_not_parkinsons
-		probs[i][0] *= prob_p[0]
-		probs[i][1] *= prob_p[1]
-		if probs[i][0] > probs[i][1]:
+			partial_parkinsons, partial_not_parkinsons = naive_node(nodes[j], test_points[j][i])
+			P[i] *= partial_parkinsons
+			NP[i] *= partial_not_parkinsons
+		P[i] *= prob_p
+		NP[i] *= (1 - prob_p)
+		if P[i] > NP[i]:
 			tags[i].append(1)
 		else:
 			tags[i].append(0)
 
-	print(array(probs))
-	print(array(tags))
+	probs = [];
+	correct = 0
+	for i in range(len(points)):
+		probs.append([P,NP])
+		if tags[i][0] == tags[i][1]:
+			correct += 1
+
+	print(prob_p)
+	print(array(nodes))
+	print(correct/len(points))
 	

@@ -107,7 +107,7 @@
 			"file": "main.py",
 			"settings":
 			{
-				"buffer_size": 6498,
+				"buffer_size": 6518,
 				"line_ending": "Windows"
 			}
 		},
@@ -115,32 +115,8 @@
 			"file": "naive.py",
 			"settings":
 			{
-				"buffer_size": 36181,
+				"buffer_size": 36243,
 				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "MySQL_Functions/aggregates.c",
-			"settings":
-			{
-				"buffer_size": 6318,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "MySQL_Functions/aggregates.def",
-			"settings":
-			{
-				"buffer_size": 300,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/C/Users/sl7v6/Downloads/scatter3d_demo.py",
-			"settings":
-			{
-				"buffer_size": 527,
-				"line_ending": "Unix"
 			}
 		},
 		{
@@ -150,6 +126,14 @@
 				"buffer_size": 702,
 				"line_ending": "Windows",
 				"name": "CREATE TABLE User ("
+			}
+		},
+		{
+			"file": "/C/SD/Github/MobileParkinsonsPrediction/loadDataLocalInfile.sql",
+			"settings":
+			{
+				"buffer_size": 1930,
+				"line_ending": "Windows"
 			}
 		},
 		{
@@ -164,23 +148,7 @@
 			"file": "AggPerDay.sql",
 			"settings":
 			{
-				"buffer_size": 7236,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "AggPerWeek.sql",
-			"settings":
-			{
-				"buffer_size": 1617,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "AggPerMonth.sql",
-			"settings":
-			{
-				"buffer_size": 1990,
+				"buffer_size": 7216,
 				"line_ending": "Windows"
 			}
 		},
@@ -188,7 +156,7 @@
 			"file": "README.md",
 			"settings":
 			{
-				"buffer_size": 1990,
+				"buffer_size": 2079,
 				"line_ending": "Windows"
 			}
 		}
@@ -221,6 +189,14 @@
 	},
 	"file_history":
 	[
+		"/C/SD/Github/MobileParkinsonsPrediction/MySQL_Functions/aggregates.c",
+		"/C/SD/Github/MobileParkinsonsPrediction/MySQL_Functions/CMakeLists.txt",
+		"/D/Github/MobileParkinsonsPrediction/AggPerWeek.sql",
+		"/D/Github/MobileParkinsonsPrediction/AggPerMonth.sql",
+		"/D/Github/MobileParkinsonsPrediction/MySQL_Functions/aggregates.def",
+		"/D/Github/MobileParkinsonsPrediction/MySQL_Functions/aggregates.c",
+		"/C/Users/Sean/AppData/Roaming/Sublime Text 2/Packages/Python/Python.sublime-build",
+		"/C/Users/sl7v6/Downloads/scatter3d_demo.py",
 		"/C/Users/sl7v6/Documents/GitHub/MobileParkinsonsPrediction/ByDay.sql",
 		"/C/Users/sl7v6/Documents/GitHub/MobileParkinsonsPrediction/LoadDataLocalInfile.sql",
 		"/C/Users/sl7v6/Documents/GitHub/MobileParkinsonsPrediction/.gitignore",
@@ -279,6 +255,7 @@
 		"case_sensitive": true,
 		"find_history":
 		[
+			"gps_gps",
 			"print\\(",
 			"print(",
 			"Latitude",
@@ -367,6 +344,7 @@
 		"regex": true,
 		"replace_history":
 		[
+			"gps",
 			"GPS_",
 			"e",
 			"ProgrammingError as e",
@@ -440,15 +418,15 @@
 					"file": "main.py",
 					"settings":
 					{
-						"buffer_size": 6498,
+						"buffer_size": 6518,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2862,
-								2866
+								5846,
+								5846
 							]
 						],
 						"settings":
@@ -457,7 +435,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1147.0,
+						"translation.y": 3857.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -467,15 +445,15 @@
 					"file": "naive.py",
 					"settings":
 					{
-						"buffer_size": 36181,
+						"buffer_size": 36243,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								36137,
-								36137
+								35060,
+								35060
 							]
 						],
 						"settings":
@@ -484,60 +462,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 19458.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "MySQL_Functions/aggregates.c",
-					"settings":
-					{
-						"buffer_size": 6318,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								3688,
-								3688
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 1776.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "MySQL_Functions/aggregates.def",
-					"settings":
-					{
-						"buffer_size": 300,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								200,
-								200
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Text/Plain text.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 19495.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -545,37 +470,11 @@
 			]
 		},
 		{
-			"selected": 2,
+			"selected": 4,
 			"sheets":
 			[
 				{
-					"buffer": 4,
-					"file": "/C/Users/sl7v6/Downloads/scatter3d_demo.py",
-					"settings":
-					{
-						"buffer_size": 527,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								0
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 5,
+					"buffer": 2,
 					"file": "PrepDB.sql",
 					"settings":
 					{
@@ -603,7 +502,33 @@
 					"type": "text"
 				},
 				{
-					"buffer": 6,
+					"buffer": 3,
+					"file": "/C/SD/Github/MobileParkinsonsPrediction/loadDataLocalInfile.sql",
+					"settings":
+					{
+						"buffer_size": 1930,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1930,
+								1930
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/SQL/SQL.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
 					"file": "AggPerHour.sql",
 					"settings":
 					{
@@ -630,19 +555,19 @@
 					"type": "text"
 				},
 				{
-					"buffer": 7,
+					"buffer": 5,
 					"file": "AggPerDay.sql",
 					"settings":
 					{
-						"buffer_size": 7236,
+						"buffer_size": 7216,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								204,
-								204
+								1264,
+								1264
 							]
 						],
 						"settings":
@@ -650,80 +575,26 @@
 							"syntax": "Packages/SQL/SQL.tmLanguage",
 							"translate_tabs_to_spaces": false
 						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.x": 56.0,
+						"translation.y": 745.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
-					"buffer": 8,
-					"file": "AggPerWeek.sql",
-					"settings":
-					{
-						"buffer_size": 1617,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								843,
-								843
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/SQL/SQL.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 9,
-					"file": "AggPerMonth.sql",
-					"settings":
-					{
-						"buffer_size": 1990,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1989,
-								1989
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/SQL/SQL.tmLanguage",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 630.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 10,
+					"buffer": 6,
 					"file": "README.md",
 					"settings":
 					{
-						"buffer_size": 1990,
+						"buffer_size": 2079,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1990,
-								1990
+								2079,
+								2079
 							]
 						],
 						"settings":
@@ -731,7 +602,7 @@
 							"syntax": "Packages/Markdown/Markdown.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 750.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -779,7 +650,7 @@
 	"menu_visible": true,
 	"output.exec":
 	{
-		"height": 237.0
+		"height": 137.0
 	},
 	"replace":
 	{
@@ -806,6 +677,6 @@
 	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 199.0,
+	"side_bar_width": 82.0,
 	"status_bar_visible": true
 }

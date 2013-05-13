@@ -40,14 +40,14 @@ CREATE OR REPLACE VIEW cov_per_day_overall_view
 	cov_lat_var,
 	cov_long_var,
 	cov_gps_traveled,
-	cov_gps_gps_range
+	cov_gps_range
 )
 AS SELECT
 	covariance(parkinsons, age),
 	covariance(parkinsons, lat_var),
 	covariance(parkinsons, long_var),
 	covariance(parkinsons, gps_traveled),
-	covariance(parkinsons, gps_gps_range)
+	covariance(parkinsons, gps_range)
 FROM agg_per_day;
 
 # Generate Correlation By Day - Overall
@@ -58,14 +58,14 @@ CREATE OR REPLACE VIEW cor_per_day_overall_view
 	cor_lat_var,
 	cor_long_var,
 	cor_gps_traveled,
-	cor_gps_gps_range
+	cor_gps_range
 )
 AS SELECT
 	covariance(parkinsons, age) / (STDDEV(parkinsons)*STDDEV(age)),
 	covariance(parkinsons, lat_var) / (STDDEV(parkinsons)*STDDEV(lat_var)),
 	covariance(parkinsons, long_var) / (STDDEV(parkinsons)*STDDEV(long_var)),
 	covariance(parkinsons, gps_traveled) / (STDDEV(parkinsons)*STDDEV(gps_traveled)),
-	covariance(parkinsons, gps_gps_range) / (STDDEV(parkinsons)*STDDEV(gps_gps_range))
+	covariance(parkinsons, gps_range) / (STDDEV(parkinsons)*STDDEV(gps_range))
 FROM agg_per_day;
 
 # Generate Mean and Std Dev View for each variable - Overall

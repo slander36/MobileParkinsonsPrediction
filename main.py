@@ -259,17 +259,17 @@ MAIN
 # Main Function
 if __name__ == '__main__':
 	# Make sure a DB exists
-	testConnection()
+	# testConnection()
 
 	# Connect to the DB
 	makeConnection()
 
 	# Get the current directory to run the search on
-	here = sys.argv[0].split('\\')
-	here = here[0:-1]
-	here = '\\'.join(here)
-	print(here)
-	here = '{0}\\Data'.format(here)
+	# here = sys.argv[0].split('\\')
+	# here = here[0:-1]
+	# here = '\\'.join(here)
+	# print(here)
+	# here = '{0}\\Data'.format(here)
 
 	# Finished Compiling GPS Data
 	
@@ -278,12 +278,12 @@ if __name__ == '__main__':
 	print("Created All Subjects")
 
 	# Walk the directory structure, creating the CSVs
-	walk(here)
-	print("Created All Subject's GPS CSVs")
+	# walk(here)
+	# print("Created All Subject's GPS CSVs")
 	
 	# Create the sql files that will load the CSVs using
 	# LOAD DATA LOCAL INFILE
 	# which the MySqlConnector doesn't have
-	loadGpsDataInfile()
-	print("Created SQL File to Load GPS CSVs")
+	# loadGpsDataInfile()
+	# print("Created SQL File to Load GPS CSVs")
 	
